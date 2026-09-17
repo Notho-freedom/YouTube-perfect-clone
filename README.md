@@ -5,7 +5,7 @@
 </p>
 
 <p align="center">
-  <a href="https://you-tube-ravels-projects-13eaae80.vercel.app"><img src="https://img.shields.io/badge/demo-live-success?style=for-the-badge&logo=vercel" alt="Live demo"></a>
+  <a href="https://you-tube-9-omega.vercel.app"><img src="https://img.shields.io/badge/demo-live-success?style=for-the-badge&logo=vercel" alt="Live demo"></a>
   <a href="https://github.com/Notho-freedom/YouTube-perfect-clone"><img src="https://img.shields.io/github/stars/Notho-freedom/YouTube-perfect-clone?style=for-the-badge&logo=github" alt="GitHub stars"></a>
   <a href="https://github.com/Notho-freedom/YouTube-perfect-clone/commits/master"><img src="https://img.shields.io/github/last-commit/Notho-freedom/YouTube-perfect-clone?style=for-the-badge&logo=git" alt="Last commit"></a>
   <img src="https://img.shields.io/badge/status-educational%20project-blue?style=for-the-badge" alt="Educational project">
@@ -23,7 +23,7 @@
 
 ## 🚀 Live Demo
 
-**Production:** https://you-tube-ravels-projects-13eaae80.vercel.app
+**Production:** https://you-tube-9-omega.vercel.app
 
 **GitHub:** https://github.com/Notho-freedom/YouTube-perfect-clone
 
@@ -49,10 +49,10 @@ The project combines a YouTube-style interface with application-level concepts s
 - Shorts-style content surfaces;
 - a dedicated YouTube Music-style experience;
 - persistent media-player behavior;
-- optional Google OAuth flows for YouTube-authorized access;
+- Google OAuth flows for YouTube-authorized access;
 - responsive layouts and animated interactions.
 
-The project started from a Magic Patterns-generated interface and was progressively extended into a more complete application architecture.
+The implementation is intentionally presented as a complete application project, with its internal architecture and infrastructure details documented at a high level while keeping implementation-specific details in the source code.
 
 ---
 
@@ -94,7 +94,7 @@ A dedicated YouTube Music-style surface with:
 
 The application supports Google authentication through Supabase Auth.
 
-Depending on configuration, the project can also request a YouTube read-only OAuth scope for features that require access to authorized YouTube account resources.
+Depending on the configured feature set, the application can also request a YouTube read-only OAuth scope for features that require access to authorized YouTube account resources.
 
 > A normal Google sign-in and YouTube API authorization are not the same thing. The latter requires explicit OAuth authorization for the requested YouTube scope.
 
@@ -119,19 +119,20 @@ Depending on configuration, the project can also request a YouTube read-only OAu
 | **Vite 5** | Development server and production bundler |
 | **React Router 6** | Client-side routing |
 | **Supabase Auth** | Authentication / OAuth integration |
+| **Supabase Edge Functions** | Server-side API/integration layer |
 | **YouTube Data API** | YouTube data integration where configured |
 | **Framer Motion** | Animations and transitions |
 | **Lucide React** | Icons |
 | **date-fns** | Date/time utilities |
 | **Tailwind CSS** | Styling utilities |
 | **PostCSS / Autoprefixer** | CSS processing |
-| **Vercel** | Production deployment |
+| **Vercel** | Production frontend deployment |
 
 ---
 
 ## 🏗️ Application architecture
 
-At a high level, the application is organized around a client-side application shell:
+At a high level, the application is organized around a client-side application shell backed by Supabase services and external YouTube APIs:
 
 ```text
 Browser
@@ -147,13 +148,17 @@ Browser
   │     ├── Music experience
   │     └── Persistent player
   │
-  ├── Supabase Auth
-  │     └── Google authentication
-  │
-  └── YouTube APIs
-        ├── Public data where configured
-        └── OAuth-authorized account resources where explicitly granted
+  └── Supabase
+        ├── Auth
+        │    └── Google authentication
+        │
+        └── Edge Function(s)
+             └── Server-side API / integration logic
+                      │
+                      └── YouTube APIs
 ```
+
+The production environment also uses server-side configuration for API credentials and integration secrets. Sensitive values are kept outside the public repository and are consumed by the appropriate Supabase runtime rather than exposed as source-code constants.
 
 The exact production behavior depends on the environment variables, API credentials and OAuth configuration supplied to the application.
 
@@ -243,40 +248,48 @@ npm run lint
 
 ---
 
-## 🔐 Environment configuration
+## 🔐 Environment & secret configuration
 
-Never commit real credentials, OAuth client secrets, service-role keys, or private tokens to the repository.
+Never commit real credentials, OAuth client secrets, service-role keys, access tokens or other sensitive information to the repository.
 
-Depending on the features enabled in the project, environment variables may be required for:
+Production integrations are separated from the public source tree. API credentials and other sensitive integration values are configured server-side through the appropriate Supabase deployment environment, including the deployed Edge Function where required.
 
-- Supabase URL
+Depending on the features enabled in the project, configuration may include:
+
+- Supabase project URL
 - Supabase public/anon key
-- YouTube Data API key
-- OAuth configuration
-- Other application-specific integration settings
+- YouTube Data API credentials
+- Google OAuth configuration
+- server-side integration secrets
+- other application-specific settings
 
-Use a local `.env` / `.env.local` file for development and configure production secrets through the deployment platform.
-
-For public repositories, enable GitHub security controls such as secret scanning, push protection, Dependabot alerts and code scanning where applicable.
+For local development, use a local `.env` / `.env.local` file and never commit real secrets.
 
 ---
 
 ## ☁️ Deployment
 
-Production is deployed through Vercel.
+The application uses a split deployment architecture:
 
 ```text
 GitHub
   │
-  │ push to master
+  ├── source code
+  │
   ▼
 Vercel
   │
-  └── Production deployment
-       https://you-tube-ravels-projects-13eaae80.vercel.app
+  └── Production frontend
+       https://you-tube-9-omega.vercel.app
+
+Supabase
+  │
+  ├── Authentication
+  └── Deployed Edge Function(s)
+       └── Server-side API / integration layer
 ```
 
-The production deployment was validated after fixing the dependency configuration described below.
+The public repository contains the client-side source code. Server-side integration logic and sensitive API configuration are deployed through Supabase and are not published as repository source or client-side credentials.
 
 ### Initial deployment issue
 
@@ -296,9 +309,11 @@ The corrected application then built successfully on Vercel.
 | TypeScript | ✅ Implemented |
 | Vite production build | ✅ Passing in Vercel |
 | Vercel production deployment | ✅ Live |
-| Google authentication | ✅ Integrated / configurable |
 | Supabase Auth | ✅ Integrated |
+| Google authentication | ✅ Integrated / configurable |
 | YouTube API integration | ✅ Integrated / configurable |
+| Supabase Edge Function layer | ✅ Deployed |
+| Server-side API configuration | ✅ Deployed outside the public repository |
 | Video / watch surfaces | ✅ Implemented |
 | Library surfaces | ✅ Implemented |
 | Shorts surface | ✅ Implemented |
@@ -431,8 +446,6 @@ Unless and until a license is added, the absence of a license does not automatic
 ## ⭐ Acknowledgements
 
 This project uses open-source software and developer tooling from the JavaScript/TypeScript ecosystem, including React, Vite, Supabase, Framer Motion, Lucide, date-fns, Tailwind CSS and related packages.
-
-The interface was initially explored with Magic Patterns and subsequently developed into a more complete application.
 
 ---
 
