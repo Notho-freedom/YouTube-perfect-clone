@@ -257,7 +257,7 @@ Depending on the features enabled in the project, environment variables may be r
 
 Use a local `.env` / `.env.local` file for development and configure production secrets through the deployment platform.
 
-For public repositories, GitHub recommends using security features such as secret scanning, push protection, Dependabot alerts and code scanning where applicable. citeturn0search0
+For public repositories, enable GitHub security controls such as secret scanning, push protection, Dependabot alerts and code scanning where applicable.
 
 ---
 
@@ -389,7 +389,7 @@ Then open a pull request with:
 
 ## 📁 Suggested project documentation
 
-As the project grows, larger documentation should live outside this README rather than making the README unnecessarily large. GitHub recommends keeping README content focused and using separate documentation for more extensive material. citeturn0search1
+As the project grows, larger documentation should live outside this README rather than making the README unnecessarily large.
 
 Possible future documentation:
 
@@ -415,7 +415,7 @@ docs/
 
 No open-source license is currently declared for this repository.
 
-Unless and until a license is added, the absence of a license does not automatically grant third parties permission to reproduce, modify or redistribute the source code. GitHub notes that a public repository is not automatically licensed for unrestricted reuse. citeturn0search7
+Unless and until a license is added, the absence of a license does not automatically grant third parties permission to reproduce, modify or redistribute the source code.
 
 ---
 
