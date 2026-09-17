@@ -1,0 +1,212 @@
+/* @import url() FONT IMPORTS MUST ALWAYS BE AT THE VERY TOP OF THIS FILE, ABOVE THE TAILWIND IMPORTS — DO NOT DELETE THIS COMMENT */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+
+/* CRITICAL: THE FOLLOWING TAILWIND IMPORTS MUST NEVER BE DELETED OR REORDERED — DO NOT DELETE THIS COMMENT */
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+/* END TAILWIND IMPORTS — ALL OTHER CSS MUST GO BELOW THIS LINE */
+
+:root {
+  --yt-bg: #ffffff;
+  --yt-bg-rgb: 255, 255, 255;
+  --yt-elevated: #ffffff;
+  --yt-text: #0f0f0f;
+  --yt-sub: #606060;
+  --yt-chip: #f2f2f2;
+  --yt-chip-hover: #e5e5e5;
+  --yt-border: #e5e5e5;
+  --yt-hover: rgba(0, 0, 0, 0.05);
+  --yt-search-border: #cccccc;
+  --yt-search-bg: #ffffff;
+  --yt-search-btn: #f8f8f8;
+  --yt-search-btn-hover: #f0f0f0;
+  --yt-skeleton: #e5e5e5;
+  --yt-inverse: #0f0f0f;
+  --yt-inverse-text: #ffffff;
+  --yt-blue: #065fd4;
+}
+.dark {
+  --yt-bg: #0f0f0f;
+  --yt-bg-rgb: 15, 15, 15;
+  --yt-elevated: #282828;
+  --yt-text: #f1f1f1;
+  --yt-sub: #aaaaaa;
+  --yt-chip: rgba(255, 255, 255, 0.1);
+  --yt-chip-hover: rgba(255, 255, 255, 0.2);
+  --yt-border: #303030;
+  --yt-hover: rgba(255, 255, 255, 0.1);
+  --yt-search-border: #303030;
+  --yt-search-bg: #121212;
+  --yt-search-btn: #222222;
+  --yt-search-btn-hover: #3f3f3f;
+  --yt-skeleton: #272727;
+  --yt-inverse: #ffffff;
+  --yt-inverse-text: #0f0f0f;
+  --yt-blue: #3ea6ff;
+}
+html,
+body,
+#root {
+  height: 100%;
+}
+body {
+  background-color: var(--yt-bg);
+  color: var(--yt-text);
+  /* YouTube's shipped stack. The wordmark's own face (YouTube Sans) is not
+     publicly distributable, so it falls back to Roboto here, as it does in
+     YouTube itself whenever the custom font fails to load. */
+  font-family: Roboto, 'Arial', 'Helvetica Neue', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+/* Translucent masthead: video-card glows and ambient lighting bleed through
+   it, exactly as they do under YouTube's own frosted header. */
+.yt-header {
+  background-color: rgba(var(--yt-bg-rgb), 0.82);
+  backdrop-filter: blur(18px) saturate(160%);
+  -webkit-backdrop-filter: blur(18px) saturate(160%);
+}
+@supports not (backdrop-filter: blur(1px)) {
+  .yt-header {
+    background-color: var(--yt-bg);
+  }
+}
+/* The petal burst YouTube plays on the like button. */
+@keyframes yt-petal {
+  0% {
+    opacity: 0;
+    transform: translate(0, 0) scale(0.4);
+  }
+  30% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translate(var(--yt-petal-x), var(--yt-petal-y)) scale(1);
+  }
+}
+.yt-petal {
+  animation: yt-petal 600ms cubic-bezier(0.23, 1, 0.32, 1) forwards;
+}
+@keyframes yt-thumb-pop {
+  0% {
+    transform: scale(1) rotate(0deg);
+  }
+  35% {
+    transform: scale(1.32) rotate(-12deg);
+  }
+  70% {
+    transform: scale(0.94) rotate(4deg);
+  }
+  100% {
+    transform: scale(1) rotate(0deg);
+  }
+}
+.yt-thumb-pop {
+  animation: yt-thumb-pop 420ms cubic-bezier(0.23, 1, 0.32, 1);
+}
+@media (prefers-reduced-motion: reduce) {
+  .yt-petal,
+  .yt-thumb-pop {
+    animation: none;
+  }
+}
+/* YouTube-style thin scrollbars */
+.yt-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: transparent transparent;
+}
+.yt-scroll::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+.yt-scroll::-webkit-scrollbar-thumb {
+  background-color: transparent;
+  border-radius: 8px;
+}
+.yt-scroll:hover::-webkit-scrollbar-thumb {
+  background-color: rgba(128, 128, 128, 0.5);
+}
+.no-scrollbar {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+/* YouTube Music light theme.
+   Music's surfaces are authored dark: white text on #030303 with white-alpha
+   fills. Rather than duplicating every token on every Music page, the palette
+   is remapped here, scoped to the shell. Only the tokens Music actually uses
+   are listed, and media is untouched so artwork keeps its true colours. */
+.music-light .bg-\[\#030303\] {
+  background-color: #ffffff;
+}
+.music-light .text-white {
+  color: #030303;
+}
+.music-light .text-white\/85,
+.music-light .text-white\/80,
+.music-light .text-white\/75 {
+  color: rgba(3, 3, 3, 0.78);
+}
+.music-light .text-white\/70,
+.music-light .text-white\/60,
+.music-light .text-white\/55,
+.music-light .text-white\/50,
+.music-light .text-white\/40 {
+  color: rgba(3, 3, 3, 0.6);
+}
+/* The `:not()` matters: a class attribute containing `hover:bg-white/[0.06]`
+   also contains the substring `bg-white/`, so without it every element that
+   merely had a HOVER fill was painted with a permanent one — which is what put
+   a grey plate behind each Music nav item in the light theme. */
+.music-light [class*='bg-white\/']:not([class*='hover\:bg-white\/']) {
+  background-color: rgba(3, 3, 3, 0.06);
+}
+.music-light [class*='hover\:bg-white\/']:hover {
+  background-color: rgba(3, 3, 3, 0.1);
+}
+.music-light [class*='border-white\/'] {
+  border-color: rgba(3, 3, 3, 0.12);
+}
+.music-light .bg-white {
+  background-color: #030303;
+}
+.music-light .text-black {
+  color: #ffffff;
+}
+/* A Music hero (the artist photo) has to run under the left rail as well as
+   behind the masthead, otherwise the rail's own column shows through as a
+   black band and reads as an opaque sidebar. The offset has to match whichever
+   rail width is in play, which the shell publishes as a data attribute. */
+.music-bleed {
+  left: 0;
+  right: 0;
+}
+@media (min-width: 768px) {
+  [data-rail='narrow'] .music-bleed {
+    left: -72px;
+  }
+  [data-rail='wide'] .music-bleed {
+    left: -240px;
+  }
+}
+/* At the absolute top of a page whose hero IS an image, the masthead and rail
+   sit on that image, so their contents stay white even in the light theme —
+   they only take the surface colour once the page scrolls. */
+.music-on-media .music-chrome,
+.music-on-media .music-chrome * {
+  color: #ffffff;
+}
+/* Caption overlay on hover previews — YouTube's own caption box. */
+.yt-caption {
+  background-color: rgba(8, 8, 8, 0.75);
+  color: #ffffff;
+  font-size: 15px;
+  line-height: 22px;
+  padding: 1px 6px;
+  border-radius: 2px;
+}
