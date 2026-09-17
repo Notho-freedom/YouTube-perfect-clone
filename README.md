@@ -5,7 +5,7 @@
 </p>
 
 <p align="center">
-  <a href="https://you-tube-9-omega.vercel.app"><img src="https://img.shields.io/badge/demo-live-success?style=for-the-badge&logo=vercel" alt="Live demo"></a>
+  <a href="https://you-tube-nine-omega.vercel.app"><img src="https://img.shields.io/badge/demo-live-success?style=for-the-badge&logo=vercel" alt="Live demo"></a>
   <a href="https://github.com/Notho-freedom/YouTube-perfect-clone"><img src="https://img.shields.io/github/stars/Notho-freedom/YouTube-perfect-clone?style=for-the-badge&logo=github" alt="GitHub stars"></a>
   <a href="https://github.com/Notho-freedom/YouTube-perfect-clone/commits/master"><img src="https://img.shields.io/github/last-commit/Notho-freedom/YouTube-perfect-clone?style=for-the-badge&logo=git" alt="Last commit"></a>
   <img src="https://img.shields.io/badge/status-educational%20project-blue?style=for-the-badge" alt="Educational project">
@@ -23,7 +23,7 @@
 
 ## 🚀 Live Demo
 
-**Production:** https://you-tube-9-omega.vercel.app
+**Production:** https://you-tube-nine-omega.vercel.app
 
 **GitHub:** https://github.com/Notho-freedom/YouTube-perfect-clone
 
